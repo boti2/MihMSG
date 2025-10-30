@@ -4,7 +4,7 @@
   "description": "Simple WebSocket relay server",
   "main": "relay.js",
   "scripts": {
-    "start": "node relay.js"
+    "start": "node main.js"
   },
   "author": "",
   "license": "MIT",
