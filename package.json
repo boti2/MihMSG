@@ -1,0 +1,14 @@
+{
+  "name": "ws-relay",
+  "version": "1.0.0",
+  "description": "Simple WebSocket relay server",
+  "main": "relay.js",
+  "scripts": {
+    "start": "node relay.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.14.0"
+  }
+}
