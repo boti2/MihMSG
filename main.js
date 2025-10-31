@@ -4,7 +4,7 @@ const WebSocket = require("ws");
 
 const app = express();
 
-app.use(express.static('http', { fallthrough: true }));
+app.use(express.static('site', { fallthrough: true }));
 
 const port = process.env.PORT || 8080;
 
