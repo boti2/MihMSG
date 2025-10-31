@@ -73,6 +73,6 @@ wss.on('connection', (ws, request) => {
 });
 
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log(`WebSocket relay running on port ${port}`);
 });
