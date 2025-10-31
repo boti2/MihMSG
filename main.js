@@ -8,7 +8,7 @@ app.use(express.static('http', { fallthrough: true }));
 
 const port = process.env.PORT || 80;
 
-app.get("/^.*$/", (req, res) => {
+app.get(/^.*$/, (req, res) => {
   res.status(404).send(`
     <!DOCTYPE html>
     <html lang="en">
