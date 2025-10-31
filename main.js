@@ -1,11 +1,10 @@
 const http = require("http");
 const express = require("express");
 const WebSocket = require("ws");
-const path = require("path");
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static('http', { fallthrough: true }));
 
 const port = process.env.PORT || 80;
 
