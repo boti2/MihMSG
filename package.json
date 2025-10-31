@@ -9,7 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "ws": "^8.14.0"
+    "ws": "^8.14.0",
     "express": "^5.0.0"
   }
 }
