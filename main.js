@@ -1,4 +1,4 @@
-const http = require("http");
+const http = require("site");
 const express = require("express");
 const WebSocket = require("ws");
 
@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.static('http', { fallthrough: true }));
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8080;
 
 app.get(/^.*$/, (req, res) => {
   res.status(404).send(`
