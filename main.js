@@ -1,7 +1,52 @@
-const WebSocket = require('ws');
+// server.js
+const http = require("http");
+const express = require("express");
+const WebSocket = require("ws");
 
-const port = process.env.PORT || 80;
-const wss = new WebSocket.Server({ port });
+const app = express();
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("*", (req, res) => {
+  res.status(404).send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>404 Not Found</title>
+      <style>
+        body {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background-color: #f9f9f9;
+        }
+        h1 {
+          font-size: 10rem;
+          color: red;
+          margin: 0;
+        }
+        p {
+          font-size: 2rem;
+          color: #333;
+          margin: 10px 0 0 0;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>404</h1>
+      <p>This page is nowhere to be found...</p>
+    </body>
+    </html>
+  `);
+});
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
 
 function normalizeIP(ip) {
   if (!ip) return ip;
