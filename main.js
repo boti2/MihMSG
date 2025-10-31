@@ -7,6 +7,8 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
 
+const port = process.env.PORT || 80;
+
 app.get("/^.*$/", (req, res) => {
   res.status(404).send(`
     <!DOCTYPE html>
@@ -70,4 +72,7 @@ wss.on('connection', (ws, request) => {
   });
 });
 
-console.log(`WebSocket relay running on port ${port}`);
+
+app.listen(3000, () => {
+  console.log(`WebSocket relay running on port ${port}`);
+});
