@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("*", (req, res) => {
+app.get("/:path*", (req, res) => {
   res.status(404).send(`
     <!DOCTYPE html>
     <html lang="en">
