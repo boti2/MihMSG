@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MihMSG Login</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <form method="post" action="/">
+    <div style="display: flex; gap: 4px; align-items: flex-start;">
+
+      <div style="display: flex; flex-direction: column; gap: 5px;">
+        <label for="name">Username:</label>
+        <label for="token">Token:</label>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 2px; align-items: flex-end;">
+        <input type="text" id="name" name="name" placeholder="Your Name">
+        <input type="text" id="token" name="token" placeholder="Invite Token">
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2px;">
+      <button type="submit">Connect</button>
+    </div>
+  </form>
+</body>
+</html>

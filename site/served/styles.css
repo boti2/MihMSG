@@ -16,9 +16,21 @@ body {
   background: #eee;
 }
 
+.input-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  margin-right: 5px;
+}
+
+.input-cmd {
+  width: 100%;
+  height: 100%;
+}
+
 .input-bar {
-  position: fixed;
-  bottom: 0;
   width: 100%;
   background: #777;
   display: flex;
@@ -26,12 +38,12 @@ body {
   box-sizing: border-box;
 }
 
-.input-bar input {
+.input-text {
   flex: 1;
   font-size: 16px;
 }
 
-.input-bar button {
+.input-send{
   margin-left: 10px;
   font-size: 16px;
 }
@@ -54,12 +66,18 @@ body {
   align-items: center;
 }
 
-
 .mname {
   font-weight: bold;
   display: inline-block;
   padding: 5px;
   background: #aaf;
+}
+
+.msname {
+  font-weight: bold;
+  display: inline-block;
+  padding: 5px;
+  background: #faa;
 }
 
 .mdate {

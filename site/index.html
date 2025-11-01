@@ -4,14 +4,18 @@
   <meta charset="utf-8">
   <title>MihMSG</title>
   <link rel="stylesheet" href="styles.css">
+  <-- INSERT GENERATED SCRIPT HERE -->
 </head>
 <body>
   <div class="scroll-area" id="scrollArea">
     <h2>MihMSG</h2>
   </div>
-  <div class="input-bar">
-    <input type="text" id="inputBox" placeholder="Type something and press Enter...">
-    <button id="sendBtn">Send</button>
+  <div class="input-bar" id="inputBar">
+    <div class="input-checkbox">
+      <input type="checkbox" class="input-cmd" id="cmdToggle">
+    </div>
+    <input type="text" class="input-text" id="inputBox" placeholder="Type something and press Enter...">
+    <button id="sendBtn" class="input-send">Send</button>
   </div>
   <script src="main.js" defer></script>
 </body>
