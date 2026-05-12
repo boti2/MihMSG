@@ -13,7 +13,7 @@ app.post(/^\/(index\.html)?$/, (req, res) => {
   const host = req.get('host');
   res.send(fs.readFileSync('site/app.html', 'utf8')
      .replace('<-- INSERT GENERATED SCRIPT HERE -->',
-      `<script>var initobj={server:"ws://${host}",name:"${req.body.name}",token:"${req.body.token}"};window.history.replaceState({},'','');</script>`
+      `<script>var initobj={server:"wss://${host}",name:"${req.body.name}",token:"${req.body.token}"};window.history.replaceState({},'','');</script>`
     ));
 });
 
