@@ -11,13 +11,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post(/^\/(index\.html)?$/, (req, res) => {
   const host = req.get('host');
-  res.send(fs.readFileSync('site/index.html', 'utf8')
+  res.send(fs.readFileSync('site/app.html', 'utf8')
      .replace('<-- INSERT GENERATED SCRIPT HERE -->',
-      `<script>var initobj={server:"wss://${host}",name:"${req.body.name}",token:"${req.body.token}"};</script>`
+      `<script>var initobj={server:"ws://${host}",name:"${req.body.name}",token:"${req.body.token}"};window.history.replaceState({},'','');</script>`
     ));
 });
 
-app.use(express.static('site/served', { fallthrough: true }));
+app.use(express.static('site', { fallthrough: true }));
 
 app.get(/^.*$/, (req, res) => {
   res.status(404).send(fs.readFileSync('site/404.html', 'utf8'));
@@ -42,7 +42,7 @@ function genToken(){
   const token = uuid.v4();
   tokens.add(token);
   setTimeout(() => {
-  tokens.delete(token);
+    tokens.delete(token);
   }, 120000);
   return token;
 }
@@ -65,7 +65,7 @@ wss.on('connection', (ws, request) => {
           ws.send(JSON.stringify({type: "auth"}));
           console.log(`User '${data.user}' connected from IP ${ws.clientIP}`);
           genToken();
-
+          tokens.delete(data.token);
           wss.clients.forEach(client => {
             if (client !== ws && client.readyState === WebSocket.OPEN) client.send(JSON.stringify({type: 'ann', text: `${data.user} joined`}));
           });
@@ -73,20 +73,23 @@ wss.on('connection', (ws, request) => {
           ws.close(1008, 'Invalid Token');
           console.log(`User '${data.name}' tried to connect from IP ${ws.clientIP} with invalid token ${data.token}`);
         }
-      } else if (data.type === 'msg'){
-        if (ws.WasAuthorised){
+      } else if (ws.WasAuthorised){
+        if (data.type === 'msg'){
           console.log(`Got authorised message from IP ${ws.clientIP}`);
           wss.clients.forEach(client => {
             if (client !== ws && client.readyState === WebSocket.OPEN) client.send(msg);
           });
-        } else console.log(`Ignoring unauthorised message '${msg}' from IP ${ws.clientIP}`);
-      } else if (data.type === 'cmd'){
-        if (data.text === 'invite'){
-          let token = genToken();
-          ws.send(JSON.stringify({type: 'ann', text: `Generated invite token: ${token}`}));
-        } else ws.send(JSON.stringify({type: 'ann', text: `Invalid command '${data.text}'`}));
-      } else console.log(`Ignoring invalid Message ${msg} from IP ${clientIP}`);
+        } else if (data.type === 'cmd'){
+          if (data.text === 'invite'){
+            let token = genToken();
+            ws.send(JSON.stringify({type: 'ann', text: `Generated invite token: ${token}`}));
+          } else ws.send(JSON.stringify({type: 'ann', text: `Invalid command '${data.text}'`}));
+        }
+      } else {
+        console.log(`Ignoring invalid/unauthorised Message ${msg} from IP ${clientIP}`);
+      }
     } catch (x){
+      ws.close(1008, 'Unauthorized Message');
       console.log(`Ignoring invalid Message ${msg} from IP ${clientIP}`);
     }
   });

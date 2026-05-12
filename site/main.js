@@ -173,15 +173,11 @@ ws.onmessage = async (event) => {
 };
 
 ws.onerror = (error) => {
-  alert('WebSocket connection failed. Please check the server address and try again.');
+  alert(`Connection errored!`);
   console.error('WebSocket error: ', error);
 };
 
 ws.onclose = (event) => {
-  if (!event.wasClean) {
-    alert(`Disconnected from WebSocket server (code: ${event.code})`);
-  }
-
   if (event.code === 1008){
     alert(`Wrong Input Token: ${initobj.token}`);
     window.location.replace(window.location.href);
